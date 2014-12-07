@@ -8,7 +8,7 @@ namespace ViewModel
     using Binding;
     using Model;
 
-    public class ViewModel : ObserableObject
+    public class ViewModel : ObservableObject
     {
         Model _model = new Model();
 
