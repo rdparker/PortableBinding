@@ -15,7 +15,7 @@ namespace Model
             set { _number = value; }
         }
 
-        string _text;
+        string _text = string.Empty;
 
         public string Text
         {
