@@ -1,8 +1,14 @@
 ﻿<Window x:Class="PortableBinding.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Portable Binding Example" Height="143" Width="260">
     <Grid>
-        
+        <Label Content="Bound Number" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.737,1.346"/>
+        <Label Content="Bound String" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+        <Label Content="Computed Value" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="NumericTextBox" HorizontalAlignment="Left" Height="23" Margin="114,15,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="StringTextBox" HorizontalAlignment="Left" Height="23" Margin="114,43,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="ComputedTextBox" HorizontalAlignment="Left" Height="23" Margin="114,74,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+
     </Grid>
 </Window>

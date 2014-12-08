@@ -15,14 +15,31 @@ using System.Windows.Shapes;
 
 namespace PortableBinding
 {
+    using Binding;
+    using ViewModel;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly ViewModel _viewModel = new ViewModel();
+        private readonly BindingObject _binding;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            _binding = new BindingObject(_viewModel);
+            
+            InitializeBindings();
+        }
+
+        private void InitializeBindings()
+        {
+            _binding.RegisterProperty("NumericTextBox_Text", () => { return NumericTextBox.Text; }, (x) => NumericTextBox.Text = x);
+
+            _binding.Bind("Number", "NumericTextBox_Text");
         }
     }
 }
