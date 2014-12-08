@@ -38,8 +38,12 @@ namespace PortableBinding
         private void InitializeBindings()
         {
             _binding.RegisterProperty("NumericTextBox_Text", () => { return NumericTextBox.Text; }, (x) => NumericTextBox.Text = x);
+            _binding.RegisterProperty("StringTextBox_Text", () => { return StringTextBox.Text; }, (x) => StringTextBox.Text = x);
+            _binding.RegisterProperty("ComputedTextBox_Text", () => { return ComputedTextBox.Text; }, (x) => ComputedTextBox.Text = x);
 
             _binding.Bind("Number", "NumericTextBox_Text");
+            _binding.Bind("Text", "StringTextBox_Text");
+            _binding.Bind("Computed", "ComputedTextBox_Text");
         }
     }
 }
