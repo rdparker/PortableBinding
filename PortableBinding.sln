@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
+# Visual Studio 2012
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortableBinding", "PortableBinding\PortableBinding.csproj", "{663638A6-BE57-4298-8D5C-DEF8B9708FB9}"
@@ -10,6 +10,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{9DB4F87D-A0B1-4269-8AA6-EE7FA27FBBAE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Binding", "Binding\Binding.csproj", "{CF247E4C-0D4C-4493-8BBB-BE6AD6B7B079}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E391CA4A-A78C-4215-943D-36F79969CC6D}"
+	ProjectSection(SolutionItems) = preProject
+		Settings.StyleCop = Settings.StyleCop
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabidWarren.Collections.Generic", "RabidWarren.Collections.Generic\RabidWarren.Collections.Generic.csproj", "{EACF7D53-ED13-48FA-B920-AB2CD3258027}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +28,27 @@ Global
 		{663638A6-BE57-4298-8D5C-DEF8B9708FB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{663638A6-BE57-4298-8D5C-DEF8B9708FB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{663638A6-BE57-4298-8D5C-DEF8B9708FB9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C368FCD7-6625-4121-9B2D-9724545E9490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C368FCD7-6625-4121-9B2D-9724545E9490}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C368FCD7-6625-4121-9B2D-9724545E9490}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C368FCD7-6625-4121-9B2D-9724545E9490}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9DB4F87D-A0B1-4269-8AA6-EE7FA27FBBAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9DB4F87D-A0B1-4269-8AA6-EE7FA27FBBAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DB4F87D-A0B1-4269-8AA6-EE7FA27FBBAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DB4F87D-A0B1-4269-8AA6-EE7FA27FBBAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C368FCD7-6625-4121-9B2D-9724545E9490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C368FCD7-6625-4121-9B2D-9724545E9490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C368FCD7-6625-4121-9B2D-9724545E9490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C368FCD7-6625-4121-9B2D-9724545E9490}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CF247E4C-0D4C-4493-8BBB-BE6AD6B7B079}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CF247E4C-0D4C-4493-8BBB-BE6AD6B7B079}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF247E4C-0D4C-4493-8BBB-BE6AD6B7B079}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF247E4C-0D4C-4493-8BBB-BE6AD6B7B079}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EACF7D53-ED13-48FA-B920-AB2CD3258027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EACF7D53-ED13-48FA-B920-AB2CD3258027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EACF7D53-ED13-48FA-B920-AB2CD3258027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EACF7D53-ED13-48FA-B920-AB2CD3258027}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = PortableBinding\PortableBinding.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
