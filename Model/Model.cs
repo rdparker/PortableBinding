@@ -1,22 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="Model.cs" company="Ron Parker">
+//   Copyright 2014 Ron Parker
+//  </copyright>
+//  <summary>
+//   Represents the Model for the PortableBinding application.
+//  </summary>
+// -----------------------------------------------------------------------
 
 namespace Model
 {
+    /// <summary>
+    /// Represents the Model for the PortableBinding application.
+    /// <para>This is a simple model with only one numeric and one string value.</para>
+    /// </summary>
     public class Model
     {
-        int _number;
+        /// <summary>
+        /// The backing for the <see cref="Text"/> property.
+        /// </summary>
+        private string _text = string.Empty;
 
-        public int Number
-        {
-            get { return _number; }
-            set { _number = value; }
-        }
+        /// <summary>
+        /// Gets or sets the number.
+        /// </summary>
+        /// <value>The number.</value>
+        public int Number { get; set; }
 
-        string _text = string.Empty;
-
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>The text.</value>
         public string Text
         {
             get { return _text; }
