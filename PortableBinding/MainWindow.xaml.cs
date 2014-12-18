@@ -97,9 +97,7 @@ namespace PortableBinding
         /// </summary>
         private void InitializeBindings()
         {
-            // TODO: Come up with a method for binding disparate types such as the Text string of a TextBox to a
-            //       numeric property.
-            // BindTextBox("NumericTextBox", "Number");
+            BindTextBox("NumericTextBox", "Number");
             BindTextBox("StringTextBox", "Text");
             BindTextBox("ComputedTextBox", "Computed");
         }
