@@ -115,9 +115,6 @@ namespace PortableBinding
             _binding.Bind(this, textProperty, source);
             _binding.Bind(this, target + ".IsEnabled", source + ".IsSettable");
 
-            // Bind the View Model back to the View
-            _binding.Bind(_viewModel, source, this, textProperty);
-
             var control = (TextBox)PropertyRegistry.Get(GetType(), target).Get(this);
             control.TextChanged += (object sender, TextChangedEventArgs e) => OnPropertyChangedEvent(textProperty);
         }
