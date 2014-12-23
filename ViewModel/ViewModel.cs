@@ -20,7 +20,7 @@ namespace ViewModel
         /// <summary>
         /// The Model this View Model presents.
         /// </summary>
-        private Model _model = new Model();
+        private readonly Model _model = new Model();
 
         /// <summary>
         /// Initializes static members of the <see cref="ViewModel"/> class, registering its properties.
@@ -28,13 +28,8 @@ namespace ViewModel
         static ViewModel()
         {
             PropertyRegistry.Add(
-                "Number",
-                (ViewModel vm) => { return vm.Number; },
-                (ViewModel vm, int value) => vm.Number = value);
-
-            PropertyRegistry.Add(
                 "Text",
-                (ViewModel vm) => { return vm.Text; },
+                (vm) => { return vm.Text; },
                 (ViewModel vm, string value) => vm.Text = value);
 
             PropertyRegistry.Add(

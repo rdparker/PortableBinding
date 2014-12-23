@@ -113,7 +113,10 @@ namespace PortableBinding
 
             // Bind the View to the View Model
             _binding.Bind(this, textProperty, source);
-            _binding.Bind(this, target + ".IsEnabled", source + ".IsSettable");
+            if (target != "NumericTextBox")
+            {
+                _binding.Bind(this, target + ".IsEnabled", source + ".IsSettable");
+            }
 
             var control = (TextBox)PropertyRegistry.Get(GetType(), target).Get(this);
             control.TextChanged += (object sender, TextChangedEventArgs e) => OnPropertyChangedEvent(textProperty);
