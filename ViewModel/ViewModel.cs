@@ -15,7 +15,7 @@ namespace ViewModel
     /// <summary>
     /// Represents the PortableBinding application's View Model.
     /// </summary>
-    public class ViewModel : ObservableObject
+    public class ViewModel : NotifyingObject
     {
         /// <summary>
         /// The Model this View Model presents.
@@ -23,26 +23,11 @@ namespace ViewModel
         private readonly Model _model = new Model();
 
         /// <summary>
-        /// Initializes static members of the <see cref="ViewModel"/> class, registering its properties.
-        /// </summary>
-        static ViewModel()
-        {
-            PropertyRegistry.Add(
-                "Text",
-                (vm) => { return vm.Text; },
-                (ViewModel vm, string value) => vm.Text = value);
-
-            PropertyRegistry.Add(
-                "Computed",
-                (ViewModel vm) => { return vm.Computed; });
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ViewModel"/> class.
         /// </summary>
         public ViewModel()
         {
-            // Fire a change notification for the Computed property when anything else changes..
+            // Fire a change notification for the Computed property when anything else changes.
             PropertyChanged += (sender, e) =>
             {
                 if (e.PropertyName != "Computed")

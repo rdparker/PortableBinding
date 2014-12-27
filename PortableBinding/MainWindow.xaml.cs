@@ -21,7 +21,7 @@ namespace PortableBinding
     /// <para>Unlike most WPF applications, this one implements binding using a portable binding mechanism.
     /// Therefore, the properties and there bindings are declared in this file.</para>
     /// </summary>
-    public partial class MainWindow : Window, IObservableObject
+    public partial class MainWindow : Window, INotifyingObject
     {
         /// <summary>
         /// The View Model displayed by this View.
@@ -55,6 +55,27 @@ namespace PortableBinding
             InitializeBindings();
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Invoked whenever the effective value of any dependency property on this
+        /// <see cref="T:System.Windows.FrameworkElement" /> has been updated. The specific dependency
+        /// property that changed is reported in the arguments parameter. Overrides
+        /// <see cref="M:System.Windows.DependencyObject.OnPropertyChanged(System.Windows.DependencyPropertyChangedEventArgs)" />.
+        /// </summary>
+        ///
+        /// <remarks>   Ron, 12/24/2014. </remarks>
+        ///
+        /// <param name="e">    The event data that describes the property that changed, as well as old
+        ///                     and new values. </param>
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+
+            // Propogate the notification for INotifyingObject.
+            OnPropertyChangedEvent(e.Property.Name);
+        }
+
         /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
@@ -81,15 +102,8 @@ namespace PortableBinding
         /// <param name="textBoxGetter">The function for getting the specific TextBox for given window.</param>
         private static void AddTextBoxProperties(string name, Func<MainWindow, TextBox> textBoxGetter)
         {
-            PropertyRegistry.Add(name, (MainWindow o) => { return textBoxGetter(o); });
-            PropertyRegistry.Add(
-                name + ".IsEnabled",
-                (MainWindow o) => { return textBoxGetter(o).IsEnabled; },
-                (MainWindow o, bool value) => { textBoxGetter(o).IsEnabled = value; });
-            PropertyRegistry.Add(
-                name + ".Text",
-                (MainWindow o) => { return textBoxGetter(o).Text; },
-                (MainWindow o, string value) => { textBoxGetter(o).Text = value; });
+            Property.Register(name, (MainWindow o) => { return textBoxGetter(o); });
+
         }
 
         /// <summary>
@@ -98,12 +112,13 @@ namespace PortableBinding
         private void InitializeBindings()
         {
             BindTextBox("NumericTextBox", "Number");
+
             BindTextBox("StringTextBox", "Text");
             BindTextBox("ComputedTextBox", "Computed");
         }
 
         /// <summary>
-        /// Binds the text box to a property in the View Model.
+        /// Binds a TextBox to a property in the View Model.
         /// </summary>
         /// <param name="target">The name of the target TextBox.</param>
         /// <param name="source">The name of the source View Model property.</param>
@@ -113,12 +128,9 @@ namespace PortableBinding
 
             // Bind the View to the View Model
             _binding.Bind(this, textProperty, source);
-            if (target != "NumericTextBox")
-            {
-                _binding.Bind(this, target + ".IsEnabled", source + ".IsSettable");
-            }
+            _binding.Bind(this, target + ".IsEnabled", source + ".CanWrite");
 
-            var control = (TextBox)PropertyRegistry.Get(GetType(), target).Get(this);
+            var control = (TextBox)Property.Find(GetType(), target).Get(this);
             control.TextChanged += (object sender, TextChangedEventArgs e) => OnPropertyChangedEvent(textProperty);
         }
     }
