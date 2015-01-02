@@ -34,16 +34,6 @@ namespace PortableBinding
         private readonly BindingObject _binding;
 
         /// <summary>
-        /// Initializes static members of the <see cref="MainWindow"/> class.
-        /// </summary>
-        static MainWindow()
-        {
-            AddTextBoxProperties("NumericTextBox", (MainWindow o) => { return o.NumericTextBox; });
-            AddTextBoxProperties("StringTextBox", (MainWindow o) => { return o.StringTextBox; });
-            AddTextBoxProperties("ComputedTextBox", (MainWindow o) => { return o.ComputedTextBox; });
-        }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
         public MainWindow()
@@ -96,23 +86,11 @@ namespace PortableBinding
         }
 
         /// <summary>
-        /// Adds the properties for a specific TextBox within the View.
-        /// </summary>
-        /// <param name="name">The name of the TextBox.</param>
-        /// <param name="textBoxGetter">The function for getting the specific TextBox for given window.</param>
-        private static void AddTextBoxProperties(string name, Func<MainWindow, TextBox> textBoxGetter)
-        {
-            Property.Register(name, (MainWindow o) => { return textBoxGetter(o); });
-
-        }
-
-        /// <summary>
         /// Initializes the bindings.
         /// </summary>
         private void InitializeBindings()
         {
             BindTextBox("NumericTextBox", "Number");
-
             BindTextBox("StringTextBox", "Text");
             BindTextBox("ComputedTextBox", "Computed");
         }
