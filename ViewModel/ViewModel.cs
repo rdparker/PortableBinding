@@ -20,7 +20,7 @@ namespace ViewModel
         /// <summary>
         /// The Model this View Model presents.
         /// </summary>
-        private readonly Model _model = new Model();
+        readonly Model _model = new Model();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewModel"/> class.

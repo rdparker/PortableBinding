@@ -26,12 +26,12 @@ namespace PortableBinding
         /// <summary>
         /// The View Model displayed by this View.
         /// </summary>
-        private readonly ViewModel _viewModel = new ViewModel();
+        readonly ViewModel _viewModel = new ViewModel();
 
         /// <summary>
         /// The object used for binding properties in this View.
         /// </summary>
-        private readonly BindingObject _binding;
+        readonly BindingObject _binding;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -43,27 +43,6 @@ namespace PortableBinding
             _binding = new BindingObject(_viewModel);
 
             InitializeBindings();
-        }
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// Invoked whenever the effective value of any dependency property on this
-        /// <see cref="T:System.Windows.FrameworkElement" /> has been updated. The specific dependency
-        /// property that changed is reported in the arguments parameter. Overrides
-        /// <see cref="M:System.Windows.DependencyObject.OnPropertyChanged(System.Windows.DependencyPropertyChangedEventArgs)" />.
-        /// </summary>
-        ///
-        /// <remarks>   Ron, 12/24/2014. </remarks>
-        ///
-        /// <param name="e">    The event data that describes the property that changed, as well as old
-        ///                     and new values. </param>
-        ////////////////////////////////////////////////////////////////////////////////////////////////////
-        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-        {
-            base.OnPropertyChanged(e);
-
-            // Propogate the notification for INotifyingObject.
-            OnPropertyChangedEvent(e.Property.Name);
         }
 
         /// <summary>
@@ -85,10 +64,31 @@ namespace PortableBinding
             }
         }
 
+        /// ////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Invoked whenever the effective value of any dependency property on this
+        /// <see cref="T:System.Windows.FrameworkElement" /> has been updated. The specific dependency
+        /// property that changed is reported in the arguments parameter. Overrides
+        /// <see cref="M:System.Windows.DependencyObject.OnPropertyChanged(System.Windows.DependencyPropertyChangedEventArgs)" />.
+        /// </summary>
+        ///
+        /// <remarks>   Last edited by Ron, 12/24/2014. </remarks>
+        ///
+        /// <param name="e">    The event data that describes the property that changed, as well as old
+        ///                     and new values. </param>
+        /// ////////////////////////////////////////////////////////////////////////////////////////////////
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+
+            // Propogate the notification for INotifyingObject.
+            OnPropertyChangedEvent(e.Property.Name);
+        }
+
         /// <summary>
         /// Initializes the bindings.
         /// </summary>
-        private void InitializeBindings()
+        void InitializeBindings()
         {
             BindTextBox("NumericTextBox", "Number");
             BindTextBox("StringTextBox", "Text");
@@ -96,11 +96,11 @@ namespace PortableBinding
         }
 
         /// <summary>
-        /// Binds a TextBox to a property in the View Model.
+        /// Binds a TextBox to a property in the View Model and sets its enabled state accordingly.
         /// </summary>
         /// <param name="target">The name of the target TextBox.</param>
         /// <param name="source">The name of the source View Model property.</param>
-        private void BindTextBox(string target, string source)
+        void BindTextBox(string target, string source)
         {
             string textProperty = target + ".Text";
 
