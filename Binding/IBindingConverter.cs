@@ -11,35 +11,49 @@ namespace Binding
 {
     using System;
 
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////
     /// <summary>
     /// Declares the interface binding converter classes must implement.  They must also have the
-    /// <see cref="Binding.BindingConverterAttribute"/>.  If they do not
-    /// <see cref="Binding.ConverterRegistry.RegisterAll()"/> will not find them.
+    /// <see cref="BindingConverterAttribute"/>.  If they do not
+    /// <see cref="ConverterRegistry.RegisterAll()"/> will not find them.
     /// </summary>
-    /// <remarks>Instead of directly inheriting this interface, classes should be derived from
-    /// <see cref="Binding.BindingConverter"/>.  It provides <see cref="Binding.BindingConverter.NoValue"/>, which is
-    /// used to indicate that a property could not be converted between the two types.  This can happen for example,
-    /// when the user clears a numeric field that is bound to an integer before the enter the desired value.</remarks>
+    ///
+    /// <remarks>
+    /// Instead of directly inheriting this interface, classes should be derived from
+    /// <see cref="BindingConverter"/>.  It provides <see cref="BindingConverter.NoValue"/>, which is
+    /// used to indicate that a property could not be converted between the two types.  This can
+    /// happen for example, when the user clears a numeric field that is bound to an integer before
+    /// the enter the desired value.
+    /// </remarks>
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////
     public interface IBindingConverter
     {
+        /// ////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Converts to the target type from the source type specified by the class
-        /// <see cref="Binding.BindingConverterAttribute"/>.
+        /// <see cref="BindingConverterAttribute"/>.
         /// </summary>
-        /// <returns>The converted value.</returns>
-        /// <param name="value">The value to convert.</param>
-        /// <param name="targetType">The target conversion type.</param>
-        /// <param name="parameter">A user-supplied parameter.</param>
+        ///
+        /// <param name="value">        The value to convert. </param>
+        /// <param name="targetType">   The target conversion type. </param>
+        /// <param name="parameter">    A user-supplied parameter. </param>
+        ///
+        /// <returns>   The converted value. </returns>
+        /// ////////////////////////////////////////////////////////////////////////////////////////////////
         object ConvertTo(object value, Type targetType, object parameter);
 
+        /// ////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Converts from the target type to the source type specified by the class
-        /// <see cref="Binding.BindingConverterAttribute"/>.
+        /// <see cref="BindingConverterAttribute"/>.
         /// </summary>
-        /// <returns>The converted value.</returns>
-        /// <param name="value">The value to convert.</param>
-        /// <param name="targetType">The target conversion type.</param>
-        /// <param name="parameter">A user-supplied parameter.</param>
+        ///
+        /// <param name="value">        The value to convert. </param>
+        /// <param name="targetType">   The target conversion type. </param>
+        /// <param name="parameter">    A user-supplied parameter. </param>
+        ///
+        /// <returns>   The converted value. </returns>
+        /// ////////////////////////////////////////////////////////////////////////////////////////////////
         object ConvertFrom(object value, Type targetType, object parameter);
     }
 }
