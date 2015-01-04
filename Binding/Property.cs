@@ -193,7 +193,7 @@ namespace Binding
                         Get = o => innerGet(outerGet(o))
                     };
 
-                    metadata.Set = MakeNotifyingSetter(
+                    metadata.Set = MakeSmartSetter(
                         name, 
                         metadata.Get, 
                         (o, value) => innerSet(outerGet(o), value));
