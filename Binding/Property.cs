@@ -292,35 +292,13 @@ namespace Binding
             string name, Func<TObject, TValue> getter, Action<TObject, TValue> setter)
             where TObject : class
         {
-            // If TObject supports INotifyingObject, create a notifying setter.
-            if (typeof(INotifyingObject).IsAssignableFrom(typeof(TObject)))
-            {
-                return MakeNotifyingSetter(
-                    name,
-                    (INotifyingObject o) => getter((TObject)o),
-                    (INotifyingObject o, TValue value) => setter((TObject)o, value));
-            }
-
-            // Otherwise, if there is a getter, create a setter that guards against setting the property to the same
-            // value in case the underlying setter does not do so.
-            //
-            // NOTE:  If two un-gettable properties were to be bidirectionally bound to each other, it would result in
-            //        infinite recursion.
-            if (getter != null)
-            {
-                return (propertyOwner, value) =>
-                {
-                    var owner = (TObject)propertyOwner;
-                    if (value.Equals(getter(owner)))
-                    {
-                        return;
-                    }
-
-                    setter(owner, (TValue)value);
-                };
-            }
-
-            return (propertyOwner, value) => setter((TObject)propertyOwner, (TValue)value);
+            // TODO: Move most of this function into the other MakeSmartSetter.
+            // TODO: Possibly collapse MakeNotifyingSetter into this function.
+            return MakeSmartSetter(
+                typeof(TObject), 
+                name, 
+                o => getter((TObject)o),
+                (o, value) => setter((TObject)o, (TValue)value));
         }
 
         /// ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -349,14 +327,31 @@ namespace Binding
         static Action<object, object> MakeSmartSetter(
             Type ownerType, string name, Func<object, object> getter, Action<object, object> simpleSetter)
         {
-            Action<object, object> smartSetter =
-                (simpleSetter == null)
-                    ? null :
-                typeof(INotifyingObject).IsAssignableFrom(ownerType)
-                    ? MakeNotifyingSetter(name, getter, simpleSetter)
-                    : MakeSmartSetter(name, getter, simpleSetter);
+            if (simpleSetter == null)
+                return null;
 
-            return smartSetter;
+            if (typeof(INotifyingObject).IsAssignableFrom(ownerType))
+                return MakeNotifyingSetter(name, getter, simpleSetter);
+
+            // Otherwise, if there is a getter, create a setter that guards against setting the property to the same
+            // value in case the underlying setter does not do so.
+            //
+            // NOTE:  If two un-gettable properties were to be bidirectionally bound to each other, it would result in
+            //        infinite recursion.
+            if (getter != null)
+            {
+                return (owner, value) =>
+                {
+                    if (value.Equals(getter(owner)))
+                    {
+                        return;
+                    }
+
+                    simpleSetter(owner, value);
+                };
+            }
+
+            return (owner, value) => simpleSetter(owner, value);
         }
 
         /// ////////////////////////////////////////////////////////////////////////////////////////////////
