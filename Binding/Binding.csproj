@@ -39,6 +39,7 @@
     <Compile Include="BindingConverter.cs" />
     <Compile Include="BindingObject.cs" />
     <Compile Include="ConverterRegistry.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="IBindingConverter.cs" />
     <Compile Include="IntegerConverter.cs" />
     <Compile Include="INotifyingObject.cs" />

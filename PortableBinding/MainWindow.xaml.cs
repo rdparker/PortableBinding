@@ -9,13 +9,12 @@
 
 namespace PortableBinding
 {
-    using System;
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
     using Binding;
     using ViewModel;
-
+    
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// <para>Unlike most WPF applications, this one implements binding using a portable binding mechanism.
@@ -50,18 +49,16 @@ namespace PortableBinding
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
-        /// <summary>
-        /// Raises the property changed event event.
-        /// </summary>
-        /// <param name="propertyName">The name of the property that changed.</param>
+        /// ////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>   Raises the property changed event. </summary>
+        ///
+        /// <remarks>   Last edited by Ron, 1/4/2015. </remarks>
+        ///
+        /// <param name="propertyName"> The name of the property that changed. </param>
+        /// ////////////////////////////////////////////////////////////////////////////////////////////////
         public void OnPropertyChangedEvent(string propertyName)
         {
-            var handler = PropertyChanged;
-
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.RaiseEvent(PropertyChanged, propertyName);
         }
 
         /// ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -82,7 +79,7 @@ namespace PortableBinding
             base.OnPropertyChanged(e);
 
             // Propogate the notification for INotifyingObject.
-            OnPropertyChangedEvent(e.Property.Name);
+            this.RaiseEvent(PropertyChanged, e.Property.Name);
         }
 
         /// <summary>

@@ -29,13 +29,7 @@ namespace Binding
         /// <param name="propertyName">The name of the property that was changed.</param>
         public void OnPropertyChangedEvent(string propertyName)
         {
-            // Avoid multithreaded race conditions where PropertyChanged could be updated between the test and
-            // the call.
-            var propertyChangedEvent = PropertyChanged;
-            if (propertyChangedEvent != null)
-            {
-                propertyChangedEvent(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.RaiseEvent(PropertyChanged, propertyName);
         }
     }
 }
