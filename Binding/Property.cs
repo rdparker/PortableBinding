@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 //  <copyright file="Property.cs" company="Ron Parker">
-//   Copyright 20142 2015 Ron Parker
+//   Copyright 2014, 2015 Ron Parker
 //  </copyright>
 //  <summary>
 //   Maintains a registry of bindable properties definitions.  The property instances are tracked

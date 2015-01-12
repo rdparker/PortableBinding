@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 //  <copyright file="ViewModel.cs" company="Ron Parker">
-//   Copyright 2014 Ron Parker
+//   Copyright 2014, 2015 Ron Parker
 //  </copyright>
 //  <summary>
 //   Implements the View Model for the PortableBinding application.

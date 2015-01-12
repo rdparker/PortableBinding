@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 //  <copyright file="Model.cs" company="Ron Parker">
-//   Copyright 2014 Ron Parker
+//   Copyright 2014, 2015 Ron Parker
 //  </copyright>
 //  <summary>
 //   Represents the Model for the PortableBinding application.
