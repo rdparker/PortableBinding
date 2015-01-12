@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 //  <copyright file="PropertyMetadata.cs" company="Ron Parker">
-//   Copyright 2014 Ron Parker
+//   Copyright 2014, 2015 Ron Parker
 //  </copyright>
 //  <summary>
 //    Provides access to basic property metadata and functions for
@@ -11,10 +11,12 @@
 namespace Binding
 {
     using System;
+    using System.Diagnostics;
 
     /// <summary>
     /// Provides access to basic property metadata and functions for accessing and manipulating a property's value.
     /// </summary>
+    [DebuggerDisplay("Type = {Type.Name}, Name = {Name}")]
     public class PropertyMetadata
     {
         /// <summary>
