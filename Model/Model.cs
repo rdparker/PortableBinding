@@ -16,11 +16,6 @@ namespace Model
     public class Model
     {
         /// <summary>
-        /// The backing for the <see cref="Text"/> property.
-        /// </summary>
-        private string _text = string.Empty;
-
-        /// <summary>
         /// Gets or sets the number.
         /// </summary>
         /// <value>The number.</value>
@@ -30,10 +25,6 @@ namespace Model
         /// Gets or sets the text.
         /// </summary>
         /// <value>The text.</value>
-        public string Text
-        {
-            get { return _text; }
-            set { _text = value; }
-        }
+        public string Text { get; set; }
     }
 }

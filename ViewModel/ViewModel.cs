@@ -23,19 +23,6 @@ namespace ViewModel
         readonly Model _model = new Model();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ViewModel"/> class.
-        /// </summary>
-        public ViewModel()
-        {
-            // Fire a change notification for the Computed property when anything else changes.
-            PropertyChanged += (sender, e) =>
-            {
-                if (e.PropertyName != "Computed")
-                    OnPropertyChangedEvent("Computed");
-            };
-        }
-
-        /// <summary>
         /// Gets or sets the View Model's number property.
         /// </summary>
         /// <value>
@@ -44,7 +31,12 @@ namespace ViewModel
         public int Number
         {
             get { return _model.Number; }
-            set { _model.Number = value; }
+            set
+            {
+                _model.Number = value;
+                OnPropertyChangedEvent(() => Number);
+                OnPropertyChangedEvent(() => Computed);
+            }
         }
 
         /// <summary>
@@ -59,6 +51,8 @@ namespace ViewModel
             set
             { 
                 _model.Text = value;
+                OnPropertyChangedEvent(() => Text);
+                OnPropertyChangedEvent(() => Computed);
             }
         }
 

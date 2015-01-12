@@ -342,7 +342,8 @@ namespace Binding
             {
                 return (owner, value) =>
                 {
-                    if (value.Equals(getter(owner)))
+                    var oldValue = getter(owner);
+                    if (value != null && value.Equals(oldValue))
                     {
                         return;
                     }
