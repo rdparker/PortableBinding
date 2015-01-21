@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 //  <copyright file="BindingConverter.cs" company="Ron Parker">
-//   Copyright 2014 Ron Parker
+//   Copyright 2014, 2015 Ron Parker
 //  </copyright>
 //  <summary>
 //   Provides a base implementation for binding converters.
@@ -13,8 +13,8 @@ namespace Binding
 
     /// <summary>
     /// Declares the methods binding converter classes must implement.  They must also have the
-    /// <see cref="Binding.BindingConverterAttribute"/>.  If they do not
-    /// <see cref="Binding.ConverterRegistry.RegisterAll()"/> will not find them.
+    /// <see cref="BindingConverterAttribute"/>.  If they do not <see cref="ConverterRegistry.RegisterAll()"/> will
+    /// not find them.
     /// </summary>
     public abstract class BindingConverter : IBindingConverter
     {
@@ -26,7 +26,7 @@ namespace Binding
 
         /// <summary>
         /// Converts to the target type from the source type specified by the class
-        /// <see cref="Binding.BindingConverterAttribute"/>.
+        /// <see cref="BindingConverterAttribute"/>.
         /// </summary>
         /// <returns>The converted value.</returns>
         /// <param name="value">The value to convert.</param>
@@ -36,7 +36,7 @@ namespace Binding
 
         /// <summary>
         /// Converts from the target type to the source type specified by the class
-        /// <see cref="Binding.BindingConverterAttribute"/>.
+        /// <see cref="BindingConverterAttribute"/>.
         /// </summary>
         /// <returns>The converted value.</returns>
         /// <param name="value">The value to convert.</param>

@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 //  <copyright file="BindingConverterAttribute.cs" company="Ron Parker">
-//   Copyright 2014 Ron Parker
+//   Copyright 2014, 2015 Ron Parker
 //  </copyright>
 //  <summary>
 //   Provides a BindingConverterAttribute for marking converter classes.
@@ -19,7 +19,7 @@ namespace Binding
     public sealed class BindingConverterAttribute : Attribute
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Binding.BindingConverterAttribute"/> class.
+        /// Initializes a new instance of the <see cref="BindingConverterAttribute"/> class.
         /// </summary>
         /// <param name="sourceType">The source type.</param>
         /// <param name="targetType">The target type.</param>
