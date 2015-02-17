@@ -9,8 +9,8 @@
 
 namespace ViewModel
 {
-    using Binding;
     using Model;
+    using RabidWarren.Binding;
 
     /// <summary>
     /// Represents the PortableBinding application's View Model.
@@ -34,8 +34,8 @@ namespace ViewModel
             set
             {
                 _model.Number = value;
-                OnPropertyChangedEvent(() => Number);
-                OnPropertyChangedEvent(() => Computed);
+                OnPropertyChangedEvent("Number");
+                OnPropertyChangedEvent("Computed");
             }
         }
 
@@ -51,8 +51,8 @@ namespace ViewModel
             set
             { 
                 _model.Text = value;
-                OnPropertyChangedEvent(() => Text);
-                OnPropertyChangedEvent(() => Computed);
+                OnPropertyChangedEvent("Text");
+                OnPropertyChangedEvent("Computed");
             }
         }
 

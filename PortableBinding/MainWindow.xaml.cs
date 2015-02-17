@@ -12,8 +12,10 @@ namespace PortableBinding
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
-    using Binding;
+    using RabidWarren.Binding;
     using ViewModel;
+    using System.Linq.Expressions;
+    using System;
     
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -58,7 +60,10 @@ namespace PortableBinding
         /// ////////////////////////////////////////////////////////////////////////////////////////////////
         public void OnPropertyChangedEvent(string propertyName)
         {
-            this.RaiseEvent(PropertyChanged, propertyName);
+            var notify = this.PropertyChanged;
+
+            if (notify != null)
+                notify(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -79,7 +84,10 @@ namespace PortableBinding
             base.OnPropertyChanged(e);
 
             // Propogate the notification for INotifyingObject.
-            this.RaiseEvent(PropertyChanged, e.Property.Name);
+            var notify = this.PropertyChanged;
+
+            if (notify != null)
+                notify(this, new PropertyChangedEventArgs(e.Property.Name));
         }
 
         /// <summary>
@@ -103,10 +111,16 @@ namespace PortableBinding
 
             // Bind the View to the View Model
             _binding.Bind(this, textProperty, source);
-            _binding.Bind(this, target + ".IsEnabled", source + ".CanWrite");
+            // _binding.Bind<DependencyObject>(this, textProperty, source);
 
-            var control = (TextBox)Property.Find(GetType(), target).Get(this);
-            control.TextChanged += (object sender, TextChangedEventArgs e) => OnPropertyChangedEvent(textProperty);
+            // _binding.Bind(this, target + ".IsEnabled", source + ".CanWrite");
+            var sourceType = typeof(ViewModel);
+            var canWrite = source + ".CanWrite";
+            var sourceIsWritable = (bool)Property.Find(sourceType, canWrite).Get(_binding.SourceObject);
+            var textBox = (TextBox)Property.Find(GetType(), target).Get(this);
+            textBox.IsEnabled = sourceIsWritable;
+            
+            textBox.TextChanged += (object sender, TextChangedEventArgs e) => OnPropertyChangedEvent(textProperty);
         }
     }
 }
