@@ -95,32 +95,18 @@ namespace PortableBinding
         /// </summary>
         void InitializeBindings()
         {
-            BindTextBox("NumericTextBox", "Number");
-            BindTextBox("StringTextBox", "Text");
-            BindTextBox("ComputedTextBox", "Computed");
-        }
+            _binding.Bind(this, mw => mw.NumericTextBox.Text, _viewModel, vm => vm.Number);
+            _binding.Bind(this, mw => mw.NumericTextBox.IsEnabled, _viewModel, vm => vm.Number.CanWrite());
 
-        /// <summary>
-        /// Binds a TextBox to a property in the View Model and sets its enabled state accordingly.
-        /// </summary>
-        /// <param name="target">The name of the target TextBox.</param>
-        /// <param name="source">The name of the source View Model property.</param>
-        void BindTextBox(string target, string source)
-        {
-            string textProperty = target + ".Text";
+            _binding.Bind(this, mw => mw.StringTextBox.Text, _viewModel, vm => vm.Text);
+            _binding.Bind(this, mw => mw.StringTextBox.IsEnabled, _viewModel, vm => vm.Text.CanWrite());
 
-            // Bind the View to the View Model
-            _binding.Bind(this, textProperty, source);
-            // _binding.Bind<DependencyObject>(this, textProperty, source);
+            _binding.Bind(this, mw => mw.ComputedTextBox.Text, _viewModel, vm => vm.Computed);
+            _binding.Bind(this, mw => mw.ComputedTextBox.IsEnabled, _viewModel, vm => vm.Computed.CanWrite());
 
-            // _binding.Bind(this, target + ".IsEnabled", source + ".CanWrite");
-            var sourceType = typeof(ViewModel);
-            var canWrite = source + ".CanWrite";
-            var sourceIsWritable = (bool)Property.Find(sourceType, canWrite).Get(_binding.SourceObject);
-            var textBox = (TextBox)Property.Find(GetType(), target).Get(this);
-            textBox.IsEnabled = sourceIsWritable;
-            
-            textBox.TextChanged += (object sender, TextChangedEventArgs e) => OnPropertyChangedEvent(textProperty);
+            NumericTextBox.TextChanged += (object sender, TextChangedEventArgs e) => OnPropertyChangedEvent("NumericTextBox.Text");
+            StringTextBox.TextChanged += (object sender, TextChangedEventArgs e) => OnPropertyChangedEvent("StringTextBox.Text");
+            ComputedTextBox.TextChanged += (object sender, TextChangedEventArgs e) => OnPropertyChangedEvent("ComputedTextBox.Text");
         }
     }
 }
