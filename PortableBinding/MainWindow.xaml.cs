@@ -9,20 +9,20 @@
 
 namespace PortableBinding
 {
-    using System.ComponentModel;
-    using System.Windows;
-    using System.Windows.Controls;
     using RabidWarren.Binding;
-    using ViewModel;
-    using System.Linq.Expressions;
     using System;
+    using System.ComponentModel;
+    using System.Linq.Expressions;
+    using System.Reflection;
+    using System.Windows.Controls;
+    using ViewModel;
     
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// <para>Unlike most WPF applications, this one implements binding using a portable binding mechanism.
     /// Therefore, the properties and there bindings are declared in this file.</para>
     /// </summary>
-    public partial class MainWindow : Window, INotifyingObject
+    public partial class MainWindow : System.Windows.Window, INotifyingObject
     {
         /// <summary>
         /// The View Model displayed by this View.
@@ -79,7 +79,7 @@ namespace PortableBinding
         /// <param name="e">    The event data that describes the property that changed, as well as old
         ///                     and new values. </param>
         /// ////////////////////////////////////////////////////////////////////////////////////////////////
-        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        protected override void OnPropertyChanged(System.Windows.DependencyPropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
 
@@ -95,18 +95,83 @@ namespace PortableBinding
         /// </summary>
         void InitializeBindings()
         {
-            _binding.Bind(this, mw => mw.NumericTextBox.Text, _viewModel, vm => vm.Number);
-            _binding.Bind(this, mw => mw.NumericTextBox.IsEnabled, _viewModel, vm => vm.Number.CanWrite());
+            Bind(mw => mw.NumericTextBox, vm => vm.Number);
+            Bind(mw => mw.StringTextBox, vm => vm.Text);
+            Bind(mw => mw.ComputedTextBox, vm => vm.Computed);
+        }
 
-            _binding.Bind(this, mw => mw.StringTextBox.Text, _viewModel, vm => vm.Text);
-            _binding.Bind(this, mw => mw.StringTextBox.IsEnabled, _viewModel, vm => vm.Text.CanWrite());
+        void Bind<T>(Expression<Func<MainWindow, TextBox>> target, Expression<Func<ViewModel, T>> source)
+        {
+            var textBox = target.Compile().Invoke(this);
+            
+            _binding.Bind(this, target.Compose(tb => tb.Text), _viewModel, source);
+            _binding.Bind(this, target.Compose(tb => tb.IsEnabled), _viewModel, source.Compose(s => s.CanWrite()));
 
-            _binding.Bind(this, mw => mw.ComputedTextBox.Text, _viewModel, vm => vm.Computed);
-            _binding.Bind(this, mw => mw.ComputedTextBox.IsEnabled, _viewModel, vm => vm.Computed.CanWrite());
+            textBox.TextChanged +=
+                (object sender, TextChangedEventArgs e) => OnPropertyChangedEvent(textBox.Name + ".Text");
+        }
+    }
 
-            NumericTextBox.TextChanged += (object sender, TextChangedEventArgs e) => OnPropertyChangedEvent("NumericTextBox.Text");
-            StringTextBox.TextChanged += (object sender, TextChangedEventArgs e) => OnPropertyChangedEvent("StringTextBox.Text");
-            ComputedTextBox.TextChanged += (object sender, TextChangedEventArgs e) => OnPropertyChangedEvent("ComputedTextBox.Text");
+    class CompositionVisitor<TGrandparent, TParent, TChild> : ExpressionVisitor
+    {
+        private Expression<Func<TGrandparent, TParent>> _parent;
+        private MemberInfo parentMember;
+        private Expression<Func<TParent, TChild>> _child;
+        private Expression childBody;
+        
+        CompositionVisitor(Expression<Func<TGrandparent, TParent>> parent, Expression<Func<TParent, TChild>> child)
+        {
+            _parent = parent;
+            parentMember = (parent.Body as MemberExpression).Member;
+            _child = child;
+            childBody = child.Body;
+        }
+
+        public static Expression<Func<TGrandparent, TChild>> Visit(
+            Expression<Func<TGrandparent, TParent>> parent, Expression<Func<TParent, TChild>> child)
+        {
+            var visitor = new CompositionVisitor<TGrandparent, TParent, TChild>(parent, child);
+
+            return (Expression<Func<TGrandparent, TChild>>)visitor.Visit(parent);
+        }
+
+        protected override Expression VisitLambda<T>(Expression<T> node)
+        {
+            if (object.ReferenceEquals(node, _parent))
+                return Expression.Lambda(Visit(node.Body), VisitAndConvert(node.Parameters, "VisitLambda"));
+
+            return base.VisitLambda<T>(node);
+        }
+
+        protected override Expression VisitMember(MemberExpression node)
+        {
+            if (object.ReferenceEquals(node.Member, parentMember))
+            {
+                switch (childBody.NodeType)
+                {
+                    case ExpressionType.MemberAccess:
+                        return Expression.MakeMemberAccess(node, (childBody as MemberExpression).Member);
+
+                    case ExpressionType.Call:
+                        var c = Expression.Call((childBody as MethodCallExpression).Method, node);
+                        return c;
+
+                    default:
+                        throw new NotSupportedException(
+                            string.Format("Unsupported expression type: '{0}'", childBody.NodeType));
+                }
+            }
+
+            return base.VisitMember(node);
+        }
+    }
+
+    public static class MWExtensions
+    {
+        public static Expression<Func<TGrandparent, TChild>> Compose<TGrandparent, TParent, TChild>(
+            this Expression<Func<TGrandparent, TParent>> parent, Expression<Func<TParent, TChild>> child)
+        {
+            return CompositionVisitor<TGrandparent, TParent, TChild>.Visit(parent, child);
         }
     }
 }

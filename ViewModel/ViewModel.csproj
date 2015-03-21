@@ -46,23 +46,25 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\NR6Pack.0.7.0\tools\analyzers\NR6Pack.dll" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RabidWarren.Binding, Version=1.0.5544.34673, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RabidWarren.Binding.1.0.5544.34673\lib\portable-net45+sl50+win+wpa81+wp80\RabidWarren.Binding.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="RabidWarren.Binding">
+      <HintPath>..\packages\RabidWarren.Binding.1.0.5558.27882\lib\portable-net45+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\RabidWarren.Binding.dll</HintPath>
     </Reference>
     <Reference Include="RabidWarren.Collections">
-      <HintPath>..\packages\RabidWarren.Collections.1.0.5499.35758\lib\portable-net45+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\RabidWarren.Collections.dll</HintPath>
+      <HintPath>C:\Users\Ron\Documents\Projects\Experiments\PortableBinding\packages\RabidWarren.Collections.1.0.5499.35758\lib\portable-net45+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\RabidWarren.Collections.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\NR6Pack.0.7.0\tools\analyzers\NR6Pack.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\StyleCop.MSBuild.4.7.49.1\build\StyleCop.MSBuild.Targets" Condition="Exists('..\packages\StyleCop.MSBuild.4.7.49.1\build\StyleCop.MSBuild.Targets')" />
