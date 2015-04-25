@@ -37,9 +37,9 @@
       <HintPath>C:\Users\Ron\Source\Repos\PortableBinding\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RabidWarren.Binding, Version=1.0.5558.27882, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="RabidWarren.Binding, Version=1.0.5562.13895, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RabidWarren.Binding.1.0.5558.27882\lib\portable-net45+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\RabidWarren.Binding.dll</HintPath>
+      <HintPath>..\packages\RabidWarren.Binding.1.0.5562.13895\lib\portable-net45+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\RabidWarren.Binding.dll</HintPath>
     </Reference>
     <Reference Include="RabidWarren.Collections">
       <HintPath>..\packages\RabidWarren.Collections.1.0.5499.35758\lib\portable-net45+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\RabidWarren.Collections.dll</HintPath>
