@@ -58,11 +58,12 @@
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RabidWarren.Binding">
-      <HintPath>..\packages\RabidWarren.Binding.1.0.5562.13895\lib\portable-net45+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\RabidWarren.Binding.dll</HintPath>
+    <Reference Include="RabidWarren.Binding, Version=1.0.1.31449, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RabidWarren.Binding.1.0.1\lib\portable-net45+sl50+win+wpa81+wp80\RabidWarren.Binding.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="RabidWarren.Collections">
-      <HintPath>C:\Users\Ron\Documents\Projects\Experiments\PortableBinding\packages\RabidWarren.Collections.1.0.5499.35758\lib\portable-net45+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\RabidWarren.Collections.dll</HintPath>
+    <Reference Include="RabidWarren.Collections, Version=1.0.5499.35758, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RabidWarren.Collections.1.0.5499.35758\lib\portable-net45+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\RabidWarren.Collections.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
